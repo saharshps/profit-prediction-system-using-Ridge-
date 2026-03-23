@@ -22,20 +22,16 @@ pipeline = Pipeline([
     ('model', Ridge())
 ])
 
-# Grid Search
 param_grid = {
     'model__alpha': [0.001, 0.01, 0.1, 1, 100]
 }
 
 grid_search = GridSearchCV(pipeline, param_grid, cv=5)
 
-# Train on TRAIN DATA (IMPORTANT)
 grid_search.fit(X_train, y_train)
 
-# Best model
 best_model = grid_search.best_estimator_
 
-# Evaluate
 y_pred = best_model.predict(X_test)
 
 print("R2 Score:", r2_score(y_test, y_pred))
